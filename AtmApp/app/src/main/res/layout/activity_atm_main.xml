@@ -30,12 +30,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="송금"/>
+            android:text="송금"
+            android:id="@+id/sendMoneyBtn"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="예약 업무 확인"/>
+            android:text="예약 업무 확인"
+            android:id="@+id/reservationTaskBtn"/>
     </LinearLayout>
 
     <LinearLayout

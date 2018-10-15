@@ -4,21 +4,21 @@ public class ListVO {
 
     private String task;
     private String account;
-    private int money;
+    public int money;
 
-    public String getTitle() {
+    public String getTask() {
         return task;
     }
 
-    public void setTitle(String title) {
+    public void setTask(String title) {
         this.task = title;
     }
 
-    public String getContext() {
+    public String getAccount() {
         return account;
     }
 
-    public void setContext(String context) {
+    public void setAccount(String context) {
         this.account = context;
     }
 

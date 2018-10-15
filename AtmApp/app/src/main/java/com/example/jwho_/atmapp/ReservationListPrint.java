@@ -20,16 +20,14 @@ public class ReservationListPrint extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("aaa","bbb");
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_reservation_list_print);
         adapter = new ReservationListAdapter();
         for(int i=0; i<Task.length; i++){
             adapter.addVO(Task[i],Account[i],Money[i]);
             }
-
-        listview = (ListView)findViewById(R.id.List_view);
-
+        listview = findViewById(R.id.List_view);
         listview.setAdapter(adapter);
     }
 }

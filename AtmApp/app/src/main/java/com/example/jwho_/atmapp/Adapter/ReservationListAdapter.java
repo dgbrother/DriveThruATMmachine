@@ -1,6 +1,7 @@
 package com.example.jwho_.atmapp.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,9 +36,9 @@ public class ReservationListAdapter extends BaseAdapter {
 
         ListVO listViewItem = listVO.get(position);
 
-        task.setText(listViewItem.getTitle());
-        account.setText(listViewItem.getContext());
-        money.setText(listViewItem.getMoney());
+        task.setText(listViewItem.getTask());
+        account.setText(listViewItem.getAccount());
+        money.setText(String.valueOf(listViewItem.getMoney()));
         return convertView;
     }
 
@@ -55,8 +56,8 @@ public class ReservationListAdapter extends BaseAdapter {
 
         ListVO item = new ListVO();
 
-        item.setTitle(task);
-        item.setContext(account);
+        item.setTask(task);
+        item.setAccount(account);
         item.setMoney(money);
 
         listVO.add(item);

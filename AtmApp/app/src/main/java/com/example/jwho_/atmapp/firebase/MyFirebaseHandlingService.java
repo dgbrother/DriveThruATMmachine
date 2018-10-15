@@ -24,7 +24,8 @@ public class MyFirebaseHandlingService extends FirebaseMessagingService {
         if(remoteMessage.getData().size() > 0) {
             Log.d("hello", "Message data payload: "+remoteMessage.getData());
             Intent intent = new Intent("GCMData");
-            String carNumber = remoteMessage.getData().get("carNumber");
+            String carNumber = remoteMessage.getData().get("test");
+
             intent.putExtra("carNumber", carNumber);
             broadcastManager.sendBroadcast(intent);
         }

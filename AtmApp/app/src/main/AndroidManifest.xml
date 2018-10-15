@@ -16,7 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ReservationListPrint"></activity>
+        <activity android:name=".ReservationListPrint">
+
+        </activity>
 
         <service android:name="com.example.jwho_.atmapp.firebase.MyFirebaseInstanceIDService">
             <intent-filter>

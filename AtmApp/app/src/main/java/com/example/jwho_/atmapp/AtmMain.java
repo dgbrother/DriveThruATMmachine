@@ -28,6 +28,11 @@ public class AtmMain extends AppCompatActivity implements View.OnClickListener{
         Button button2 = findViewById(R.id.getMoneyBtn);
         button2.setOnClickListener(this);
 
+        Button button3 = findViewById(R.id.sendMoneyBtn);
+        button3.setOnClickListener(this);
+
+        Button button4 = findViewById(R.id.reservationTaskBtn);
+        button4.setOnClickListener(this);
     }
 
     @Override
@@ -38,7 +43,13 @@ public class AtmMain extends AppCompatActivity implements View.OnClickListener{
                 Toast.makeText(AtmMain.this,"button click",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.getMoneyBtn:
-
+                Toast.makeText(AtmMain.this,"button click",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.sendMoneyBtn:
+                Toast.makeText(AtmMain.this,"button click",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.reservationTaskBtn:
+                Log.d("aaa","bbb");
                 Intent intent = new Intent(getApplicationContext(),ReservationListPrint.class);
                 startActivity(intent);
                 break;
@@ -67,8 +78,8 @@ public class AtmMain extends AppCompatActivity implements View.OnClickListener{
             String carNumber = intent.getExtras().getString("carNumber");
             Toast.makeText(getApplicationContext(), carNumber, Toast.LENGTH_LONG).show();
 
-//            Intent intentac = new Intent(getApplicationContext(), MainActivity.class);
-//            startActivity(intentac);
+//            Intent intentac = new Intent(getApplicationContext(), ReservationListPrint.class);
+//           startActivity(intentac);
 //            finish();
         }
     };
