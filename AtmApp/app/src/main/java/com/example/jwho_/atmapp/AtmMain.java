@@ -76,11 +76,14 @@ public class AtmMain extends AppCompatActivity implements View.OnClickListener{
         @Override
         public void onReceive(Context context, Intent intent) {
             String carNumber = intent.getExtras().getString("carNumber");
+            Log.i("abcdefg",carNumber);
+
             Toast.makeText(getApplicationContext(), carNumber, Toast.LENGTH_LONG).show();
 
-//            Intent intentac = new Intent(getApplicationContext(), ReservationListPrint.class);
-//           startActivity(intentac);
-//            finish();
+            Intent intentac = new Intent(getApplicationContext(), ReservationListPrint.class);
+            intentac.putExtra("carNumber",carNumber);
+            startActivity(intentac);
+            finish();
         }
     };
 }

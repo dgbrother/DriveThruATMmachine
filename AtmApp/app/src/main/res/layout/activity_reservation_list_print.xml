@@ -23,7 +23,6 @@
                 android:gravity="center"
                 android:textAlignment="center"
                 android:id="@+id/text1"
-                android:text=" 환영합니다.\n 72가 4885"
                 android:textSize="20dp"/>
         </LinearLayout>
 
