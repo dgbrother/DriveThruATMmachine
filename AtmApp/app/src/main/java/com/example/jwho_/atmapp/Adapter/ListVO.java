@@ -1,11 +1,15 @@
 package com.example.jwho_.atmapp.Adapter;
 
-public class ListVO {
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+
+public class ListVO{
 
     private String task;
     private String srcAccount;
     private String desAccount;
-    public int money;
+    private int money;
 
     public String getTask() {
         return task;
