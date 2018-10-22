@@ -5,7 +5,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,48 +22,42 @@ public class ReservationListPrint extends AppCompatActivity {
 
     private ListView listview;
     private ReservationListAdapter adapter;
-    private String[] Task = {"입금","출금","송금"};
-    private String[] Account = {"12-1234","23-3456","44-5677"};
-    private int[] Money = {1000,2500,15000};
-
+    private String[] Task = {"송금", "송금"};
+    private String[] srcAccount = new String[10];
+    private String[] desAccount = new String[10];
+    private int[] Money = new int[10];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation_list_print);
         Intent intent = getIntent();
-        String carNumber = intent.getStringExtra("carNumber");
-        Log.d("qqqqq",carNumber);
-        TextView tv =(TextView)findViewById(R.id.text1);
-        tv.setText("환영합니다.\n" + carNumber);
+        String jsonStr = intent.getStringExtra("carNumber");
+        Log.d("testnow", jsonStr);
 
-//        JSONObject jsonResult= null;
-//        resTaskList restasklist = resTaskList(jsonResult);
+        try {
+            JSONArray jarray = new JSONObject(jsonStr).getJSONArray("data");
+            for (int i = 0; i < jarray.length(); i++) {
+                JSONObject jObject = jarray.getJSONObject(i);  // JSONObject 추출
+                String carNumber = jObject.getString("carnumber");
+                srcAccount[i] = jObject.getString("src_account");
+                desAccount[i] = jObject.getString("dst_account");
+                Money[i] = jObject.getInt("amount");
+
+                TextView tv = (TextView) findViewById(R.id.text1);
+                tv.setText("환영합니다.\n" + carNumber);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         adapter = new ReservationListAdapter();
-        for(int i=0; i<Task.length; i++){
-            adapter.addVO(Task[i],Account[i],Money[i]);
-//            adapter.addVO(restasklist.getTask(),restasklist.getAccount(),restasklist.getMoney());
-            }
+        for (int j = 0; j < Task.length; j++) {
+            adapter.addVO(Task[j], srcAccount[j], desAccount[j], Money[j]);
+        }
 
         listview = findViewById(R.id.List_view);
         listview.setAdapter(adapter);
     }
 
-//    private resTaskList resTaskList(JSONObject jsonObject) {
-//        try {
-//            JSONArray jsonArray = jsonObject.getJSONArray("data");
-//            JSONObject jobj = jsonArray.getJSONObject(0);
-//
-//            resTaskList restasklist = new resTaskList(
-//                    jobj.getString("task"),
-//                    jobj.getString("account"),
-//                    jobj.getInt("money")
-//            );
-//        return restasklist;
-//        }catch (JSONException e){
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
 }

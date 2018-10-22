@@ -31,13 +31,15 @@ public class ReservationListAdapter extends BaseAdapter {
         }
 
         TextView task = (TextView) convertView.findViewById(R.id.task);
-        TextView account = (TextView) convertView.findViewById(R.id.account);
+        TextView srcAccount = (TextView) convertView.findViewById(R.id.srcAccount);
+        TextView desAccount = (TextView) convertView.findViewById(R.id.desAccount);
         TextView money = (TextView) convertView.findViewById(R.id.money);
 
         ListVO listViewItem = listVO.get(position);
 
         task.setText(listViewItem.getTask());
-        account.setText(listViewItem.getAccount());
+        srcAccount.setText(listViewItem.getSrcAccount());
+        desAccount.setText(listViewItem.getDesAccount());
         money.setText(String.valueOf(listViewItem.getMoney()));
         return convertView;
     }
@@ -52,12 +54,13 @@ public class ReservationListAdapter extends BaseAdapter {
         return listVO.get(position);
     }
 
-    public void addVO(String task, String account, int money) {
+    public void addVO(String task, String srcAccount, String desAccount, int money) {
 
         ListVO item = new ListVO();
 
         item.setTask(task);
-        item.setAccount(account);
+        item.setSrcAccount(srcAccount);
+        item.setDesAccount(desAccount);
         item.setMoney(money);
 
         listVO.add(item);

@@ -14,7 +14,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1"/>
         <TextView
-            android:id="@+id/account"
+            android:id="@+id/srcAccount"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/desAccount"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
@@ -24,6 +29,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"/>
         <Button
+            android:id="@+id/deleteTask"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="삭제"

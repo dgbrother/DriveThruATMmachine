@@ -49,7 +49,6 @@ public class AtmMain extends AppCompatActivity implements View.OnClickListener{
                 Toast.makeText(AtmMain.this,"button click",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.reservationTaskBtn:
-                Log.d("aaa","bbb");
                 Intent intent = new Intent(getApplicationContext(),ReservationListPrint.class);
                 startActivity(intent);
                 break;

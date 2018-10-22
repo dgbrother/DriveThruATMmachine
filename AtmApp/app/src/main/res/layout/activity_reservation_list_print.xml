@@ -6,7 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="5">
+        android:layout_weight="4.5">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -45,8 +45,15 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="계좌"
+        android:text="선택계좌"
         android:layout_weight="1"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="송금할계좌"
+        android:layout_weight="1"
+        />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -62,7 +69,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
-
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
