@@ -6,10 +6,15 @@ import android.view.View;
 
 public class ListVO{
 
+    private int no;
     private String task;
     private String srcAccount;
     private String desAccount;
     private int money;
+
+    public int getNo() { return no; }
+
+    public void setNo(Integer no){ this.no = no;}
 
     public String getTask() {
         return task;

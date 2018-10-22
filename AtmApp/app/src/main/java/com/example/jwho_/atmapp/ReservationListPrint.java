@@ -18,11 +18,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ReservationListPrint extends AppCompatActivity {
 
     private ListView listview;
     private ReservationListAdapter adapter;
-    private String[] Task = {"송금", "송금"};
+    private int[] taskNo = new int[10];
+    private String[] Task = new String[10];
     private String[] srcAccount = new String[10];
     private String[] desAccount = new String[10];
     private int[] Money = new int[10];
@@ -40,6 +44,8 @@ public class ReservationListPrint extends AppCompatActivity {
             for (int i = 0; i < jarray.length(); i++) {
                 JSONObject jObject = jarray.getJSONObject(i);  // JSONObject 추출
                 String carNumber = jObject.getString("carnumber");
+                taskNo[i] = jObject.getInt("no");
+                Task[i] = jObject.getString("type");
                 srcAccount[i] = jObject.getString("src_account");
                 desAccount[i] = jObject.getString("dst_account");
                 Money[i] = jObject.getInt("amount");
@@ -52,8 +58,10 @@ public class ReservationListPrint extends AppCompatActivity {
         }
 
         adapter = new ReservationListAdapter();
-        for (int j = 0; j < Task.length; j++) {
-            adapter.addVO(Task[j], srcAccount[j], desAccount[j], Money[j]);
+        for (int j = 0; j < taskNo.length; j++) {
+            if(taskNo[j] > 0) {
+                adapter.addVO(taskNo[j], Task[j], srcAccount[j], desAccount[j], Money[j]);
+            }
         }
 
         listview = findViewById(R.id.List_view);

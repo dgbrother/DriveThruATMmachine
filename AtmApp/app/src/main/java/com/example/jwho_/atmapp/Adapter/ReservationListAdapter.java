@@ -1,5 +1,6 @@
 package com.example.jwho_.atmapp.Adapter;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jwho_.atmapp.AtmMain;
+import com.example.jwho_.atmapp.NetworkTask;
 import com.example.jwho_.atmapp.R;
 import com.example.jwho_.atmapp.ReservationListPrint;
 
@@ -36,7 +38,8 @@ public class ReservationListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.custom_listview,parent,false);
         }
 
-        final TextView task = (TextView) convertView.findViewById(R.id.task);
+        final TextView no = (TextView) convertView.findViewById(R.id.no);
+        TextView task = (TextView) convertView.findViewById(R.id.task);
         TextView srcAccount = (TextView) convertView.findViewById(R.id.srcAccount);
         final TextView desAccount = (TextView) convertView.findViewById(R.id.desAccount);
         TextView money = (TextView) convertView.findViewById(R.id.money);
@@ -44,14 +47,16 @@ public class ReservationListAdapter extends BaseAdapter {
 
         ListVO listViewItem = listVO.get(position);
 
+        no.setText(String.valueOf(listViewItem.getNo()));
         task.setText(listViewItem.getTask());
         srcAccount.setText(listViewItem.getSrcAccount());
         desAccount.setText(listViewItem.getDesAccount());
         money.setText(String.valueOf(listViewItem.getMoney()));
+
         deleteTaskButton.setOnClickListener((new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Toast.makeText(context,desAccount.getText(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,no.getText(),Toast.LENGTH_SHORT).show();
             }
         }));
         return convertView;
@@ -67,10 +72,11 @@ public class ReservationListAdapter extends BaseAdapter {
         return listVO.get(position);
     }
 
-    public void addVO(String task, String srcAccount, String desAccount, int money) {
+    public void addVO(int no, String task, String srcAccount, String desAccount, int money) {
 
         ListVO item = new ListVO();
 
+        item.setNo(no);
         item.setTask(task);
         item.setSrcAccount(srcAccount);
         item.setDesAccount(desAccount);
