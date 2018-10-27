@@ -21,11 +21,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ReservationListPrint extends AppCompatActivity {
 
     private ListView listview;
     private ReservationListAdapter adapter;
-    private int[] taskNo = new int[10];
+    String carNumber;
+    private String[] taskNo = new String[10];
     private String[] Task = new String[10];
     private String[] srcAccount = new String[10];
     private String[] desAccount = new String[10];
@@ -41,17 +43,21 @@ public class ReservationListPrint extends AppCompatActivity {
 
         try {
             JSONArray jarray = new JSONObject(jsonStr).getJSONArray("data");
+
             for (int i = 0; i < jarray.length(); i++) {
                 JSONObject jObject = jarray.getJSONObject(i);  // JSONObject 추출
-                String carNumber = jObject.getString("carnumber");
-                taskNo[i] = jObject.getInt("no");
+
+                carNumber = jObject.getString("carnumber");
+                taskNo[i] = jObject.getString("no");
                 Task[i] = jObject.getString("type");
                 srcAccount[i] = jObject.getString("src_account");
                 desAccount[i] = jObject.getString("dst_account");
                 Money[i] = jObject.getInt("amount");
 
                 TextView tv = (TextView) findViewById(R.id.text1);
-                tv.setText("환영합니다.\n" + carNumber);
+                tv.setText("환영합니다.");
+                TextView tv1 = (TextView) findViewById(R.id.text2);
+                tv1.setText(carNumber);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -59,8 +65,9 @@ public class ReservationListPrint extends AppCompatActivity {
 
         adapter = new ReservationListAdapter();
         for (int j = 0; j < taskNo.length; j++) {
-            if(taskNo[j] > 0) {
-                adapter.addVO(taskNo[j], Task[j], srcAccount[j], desAccount[j], Money[j]);
+            Log.d("testzzz", "zzzxxxx");
+            if(taskNo[j] != null) {
+                adapter.addVO(carNumber,taskNo[j], Task[j], srcAccount[j], desAccount[j], Money[j]);
             }
         }
 

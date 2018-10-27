@@ -9,6 +9,11 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
         <TextView
+            android:id="@+id/carNumber"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.2"/>
+        <TextView
             android:id="@+id/no"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
