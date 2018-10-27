@@ -1,13 +1,20 @@
 package com.example.jwho_.atmapp;
 
+import android.app.AlertDialog;
+import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,57 +29,100 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ReservationListPrint extends AppCompatActivity {
-
-    private ListView listview;
+public class ReservationListPrint extends AppCompatActivity implements AdapterView.OnItemClickListener {
+    private String url = "http://35.200.117.1:8080/control.jsp";
     private ReservationListAdapter adapter;
-    String carNumber;
-    private String[] taskNo = new String[10];
-    private String[] Task = new String[10];
-    private String[] srcAccount = new String[10];
-    private String[] desAccount = new String[10];
-    private int[] Money = new int[10];
-
+    private String currentCarNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation_list_print);
-        Intent intent = getIntent();
-        String jsonStr = intent.getStringExtra("carNumber");
-        Log.d("testnow", jsonStr);
 
         try {
-            JSONArray jarray = new JSONObject(jsonStr).getJSONArray("data");
+            Intent intent = getIntent();
+            String jsonStr = intent.getStringExtra("carNumber");
+            JSONObject jsonObject = new JSONObject(jsonStr);
 
-            for (int i = 0; i < jarray.length(); i++) {
-                JSONObject jObject = jarray.getJSONObject(i);  // JSONObject 추출
+            ArrayList<ReservationWork> works = ReservationWork.jsonToReserveInfo(jsonObject);
+            currentCarNumber = works.get(0).getCarNumber();
 
-                carNumber = jObject.getString("carnumber");
-                taskNo[i] = jObject.getString("no");
-                Task[i] = jObject.getString("type");
-                srcAccount[i] = jObject.getString("src_account");
-                desAccount[i] = jObject.getString("dst_account");
-                Money[i] = jObject.getInt("amount");
+            adapter = new ReservationListAdapter();
+            for (int i = 0; i < works.size(); i++)
+                adapter.addVO(works.get(i));
 
-                TextView tv = (TextView) findViewById(R.id.text1);
-                tv.setText("환영합니다.");
-                TextView tv1 = (TextView) findViewById(R.id.text2);
-                tv1.setText(carNumber);
-            }
+            ListView listview = findViewById(R.id.List_view);
+            listview.setAdapter(adapter);
+            listview.setOnItemClickListener(ReservationListPrint.this);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        adapter = new ReservationListAdapter();
-        for (int j = 0; j < taskNo.length; j++) {
-            Log.d("testzzz", "zzzxxxx");
-            if(taskNo[j] != null) {
-                adapter.addVO(carNumber,taskNo[j], Task[j], srcAccount[j], desAccount[j], Money[j]);
-            }
-        }
-
-        listview = findViewById(R.id.List_view);
-        listview.setAdapter(adapter);
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ReservationListPrint.this);
+        builder.setTitle("예약 번호 : "+adapter.getNo(i));
+        builder.setMessage("정말 삭제하시겠습니까?");
+
+        builder.setPositiveButton("아니오", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNegativeButton("예", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                deleteReservation(adapter.getNo(i));
+            }
+        });
+
+        builder.show();
+    }
+
+    public class NetworkTask extends AsyncTask<Void, Void, JSONObject> {
+        private String url;
+        private ContentValues values;
+
+        public NetworkTask(String url, ContentValues values) {
+            this.url = url;
+            this.values = values;
+        }
+
+        @Override
+        protected JSONObject doInBackground(Void... voids) {
+            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
+            JSONObject result = requestHttpURLConnection.request(url, values);
+
+            ArrayList<ReservationWork> works = ReservationWork.jsonToReserveInfo(result);
+            adapter = new ReservationListAdapter();
+            for (int i = 0; i < works.size(); i++)
+                adapter.addVO(works.get(i));
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject s) {
+            super.onPostExecute(s);
+            ListView listview = findViewById(R.id.List_view);
+            listview.setAdapter(adapter);
+            listview.setOnItemClickListener(ReservationListPrint.this);
+        }
+    }
+
+    private void deleteReservation(String no) {
+        ContentValues params = new ContentValues();
+        params.put("type",      "reservation");
+        params.put("action",    "update");
+        params.put("from",      "machine");
+        params.put("carNumber", currentCarNumber);
+        params.put("no",        no);
+
+        NetworkTask deleteReservationInfoTask = new NetworkTask(url, params);
+        deleteReservationInfoTask.execute();
+    }
 }

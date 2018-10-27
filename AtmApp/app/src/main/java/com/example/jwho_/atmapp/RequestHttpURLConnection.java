@@ -3,6 +3,9 @@ package com.example.jwho_.atmapp;
 import android.content.ContentValues;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,7 +16,7 @@ import java.net.URL;
 import java.util.Map;
 
 public class RequestHttpURLConnection {
-    public String request(String _url, ContentValues params) {
+    public JSONObject request(String _url, ContentValues params) {
         HttpURLConnection urlConn = null;
         StringBuffer sbParams = new StringBuffer();     // URL에 함께 보낼 parameter
 
@@ -75,11 +78,15 @@ public class RequestHttpURLConnection {
             Log.d("http", "Param: "+strParams);
             Log.d("http", "Response: "+page);
 
-            return page;
+            JSONObject jsonObject = new JSONObject(page);
+            return jsonObject;
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (JSONException e) {
+
         } finally {
             if(urlConn != null)
                 urlConn.disconnect();

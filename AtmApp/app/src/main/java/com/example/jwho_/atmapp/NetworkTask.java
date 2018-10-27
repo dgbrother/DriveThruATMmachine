@@ -3,7 +3,9 @@ package com.example.jwho_.atmapp;
 import android.content.ContentValues;
 import android.os.AsyncTask;
 
-public class NetworkTask extends AsyncTask<Void, Void, String> {
+import org.json.JSONObject;
+
+public class NetworkTask extends AsyncTask<Void, Void, JSONObject> {
     private String url;
     private ContentValues values;
 
@@ -13,8 +15,8 @@ public class NetworkTask extends AsyncTask<Void, Void, String> {
     }
 
     @Override
-    protected String doInBackground(Void... voids) {
-        String result;
+    protected JSONObject doInBackground(Void... voids) {
+        JSONObject result;
         RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
         result = requestHttpURLConnection.request(url, values);
 
@@ -22,7 +24,7 @@ public class NetworkTask extends AsyncTask<Void, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String s) {
+    protected void onPostExecute(JSONObject s) {
         super.onPostExecute(s);
     }
 }
