@@ -6,7 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="4.5">
+        android:layout_weight="5">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -22,7 +22,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textAlignment="center"
-                android:id="@+id/text1"></TextView>
+                android:text="환영합니다" ></TextView>
         </LinearLayout>
 
         <LinearLayout
@@ -35,7 +35,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="4.5">
+        android:layout_weight="5">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -59,6 +59,20 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:text="예약된 업무를 실행 하시려면 카드를 접촉 해 주세요."></TextView>
+    </LinearLayout>
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
