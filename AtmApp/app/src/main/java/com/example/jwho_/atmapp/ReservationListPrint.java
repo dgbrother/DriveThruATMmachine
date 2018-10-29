@@ -28,19 +28,37 @@ import com.example.jwho_.atmapp.Adapter.ReservationListAdapter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ReservationListPrint extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class ReservationListPrint extends AppCompatActivity implements AdapterView.OnItemClickListener{
     private String url = "http://35.200.117.1:8080/control.jsp";
     private ReservationListAdapter adapter;
     private String currentCarNumber;
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation_list_print);
+
+        findViewById(R.id.Back).setOnClickListener(
+                new Button.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), AtmMain.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+        );
 
         try {
             Intent intent = getIntent();
@@ -62,34 +80,38 @@ public class ReservationListPrint extends AppCompatActivity implements AdapterVi
                 listview.setOnItemClickListener(ReservationListPrint.this);
             }
 
+            TextView carnum;
+            carnum = (TextView)findViewById(R.id.text2);
+            carnum.setText(currentCarNumber);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(ReservationListPrint.this);
-        builder.setTitle("예약 번호 : "+adapter.getNo(i));
-        builder.setMessage("정말 삭제하시겠습니까?");
+        public void onItemClick (AdapterView < ? > adapterView, View view,final int i, long l){
+            AlertDialog.Builder builder = new AlertDialog.Builder(ReservationListPrint.this);
+            builder.setTitle("예약 번호 : " + adapter.getNo(i));
+            builder.setMessage("정말 삭제하시겠습니까?");
 
-        builder.setPositiveButton("아니오", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+            builder.setPositiveButton("아니오", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
 
-        builder.setNegativeButton("예", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                deleteReservation(adapter.getNo(i));
-            }
-        });
+            builder.setNegativeButton("예", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    deleteReservation(adapter.getNo(i));
+                }
+            });
 
-        builder.show();
-    }
+            builder.show();
+        }
 
     @Override
     protected void onStart() {

@@ -16,9 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ReservationListPrint"></activity>
+        <activity android:name=".ReservationListPrint">
+        </activity>
 
-        <service android:name=".firebase.MyFirebaseInstanceIDService">
+        <service android:name="com.example.jwho_.atmapp.firebase.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
