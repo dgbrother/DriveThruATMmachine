@@ -16,21 +16,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ReservationListPrint">
+        <activity android:name=".ReservationListPrint"></activity>
 
-        </activity>
-
-        <service android:name="com.example.jwho_.atmapp.firebase.MyFirebaseInstanceIDService">
+        <service android:name=".firebase.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service
-            android:name="com.example.jwho_.atmapp.firebase.MyFirebaseHandlingService">
+        <service android:name=".firebase.MyFirebaseHandlingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <activity android:name=".ResultViewer"></activity>
     </application>
 
 </manifest>

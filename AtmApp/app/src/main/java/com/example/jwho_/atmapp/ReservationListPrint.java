@@ -1,12 +1,16 @@
 package com.example.jwho_.atmapp;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,19 +44,23 @@ public class ReservationListPrint extends AppCompatActivity implements AdapterVi
 
         try {
             Intent intent = getIntent();
-            String jsonStr = intent.getStringExtra("carNumber");
+            String jsonStr = intent.getStringExtra("data");
             JSONObject jsonObject = new JSONObject(jsonStr);
 
             ArrayList<ReservationWork> works = ReservationWork.jsonToReserveInfo(jsonObject);
-            currentCarNumber = works.get(0).getCarNumber();
+            if(works.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "예약된 정보가 없습니다.", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                currentCarNumber = works.get(0).getCarNumber();
+                adapter = new ReservationListAdapter();
+                for (int i = 0; i < works.size(); i++)
+                    adapter.addVO(works.get(i));
 
-            adapter = new ReservationListAdapter();
-            for (int i = 0; i < works.size(); i++)
-                adapter.addVO(works.get(i));
-
-            ListView listview = findViewById(R.id.List_view);
-            listview.setAdapter(adapter);
-            listview.setOnItemClickListener(ReservationListPrint.this);
+                ListView listview = findViewById(R.id.List_view);
+                listview.setAdapter(adapter);
+                listview.setOnItemClickListener(ReservationListPrint.this);
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -82,6 +90,36 @@ public class ReservationListPrint extends AppCompatActivity implements AdapterVi
 
         builder.show();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LocalBroadcastManager
+                .getInstance(this)
+                .registerReceiver(mMessageReceiver, new IntentFilter("GCMData"));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LocalBroadcastManager
+                .getInstance(this)
+                .unregisterReceiver(mMessageReceiver);
+    }
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String result = intent.getExtras().getString("result");
+
+            if(result != null) {
+                Intent intentac = new Intent(getApplicationContext(), ResultViewer.class);
+                intentac.putExtra("result", result);
+                startActivity(intentac);
+                finish();
+            }
+        }
+    };
 
     public class NetworkTask extends AsyncTask<Void, Void, JSONObject> {
         private String url;

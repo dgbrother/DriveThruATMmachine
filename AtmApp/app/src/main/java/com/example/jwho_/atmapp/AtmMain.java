@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.example.jwho_.atmapp.Adapter.ReservationListAdapter;
 
+import org.json.JSONObject;
+
 public class AtmMain extends AppCompatActivity implements View.OnClickListener{
 
     @Override
@@ -74,15 +76,14 @@ public class AtmMain extends AppCompatActivity implements View.OnClickListener{
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String carNumber = intent.getExtras().getString("carNumber");
-            //Log.d("abcdefg",carNumber);
+            String carNumber = intent.getExtras().getString("data");
 
-            //Toast.makeText(getApplicationContext(), carNumber, Toast.LENGTH_LONG).show();
-
-            Intent intentac = new Intent(getApplicationContext(), ReservationListPrint.class);
-            intentac.putExtra("carNumber",carNumber);
-            startActivity(intentac);
-            finish();
+            if(carNumber != null) {
+                Intent intentac = new Intent(getApplicationContext(), ReservationListPrint.class);
+                intentac.putExtra("data", carNumber);
+                startActivity(intentac);
+                finish();
+            }
         }
     };
 }
