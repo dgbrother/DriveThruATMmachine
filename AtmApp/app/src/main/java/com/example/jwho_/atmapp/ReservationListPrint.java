@@ -30,19 +30,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ReservationListPrint extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class ReservationListPrint extends AppCompatActivity implements AdapterView.OnItemClickListener{
     private String url = "http://35.200.117.1:8080/control.jsp";
     private ReservationListAdapter adapter;
     private String currentCarNumber;
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation_list_print);
+
+        findViewById(R.id.Back).setOnClickListener(
+                new Button.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), AtmMain.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+        );
 
         try {
             Intent intent = getIntent();
@@ -69,8 +81,6 @@ public class ReservationListPrint extends AppCompatActivity implements AdapterVi
         }
     }
 
-
-
     @Override
         public void onItemClick (AdapterView < ? > adapterView, View view,final int i, long l){
             AlertDialog.Builder builder = new AlertDialog.Builder(ReservationListPrint.this);
@@ -94,7 +104,6 @@ public class ReservationListPrint extends AppCompatActivity implements AdapterVi
 
             builder.show();
         }
-
 
     public class NetworkTask extends AsyncTask<Void, Void, JSONObject> {
         private String url;

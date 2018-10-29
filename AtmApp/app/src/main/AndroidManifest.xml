@@ -17,7 +17,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ReservationListPrint">
-
         </activity>
 
         <service android:name="com.example.jwho_.atmapp.firebase.MyFirebaseInstanceIDService">
