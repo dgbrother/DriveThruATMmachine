@@ -1,4 +1,4 @@
-package com.example.jwho_.atmapp;
+package com.example.jwho_.atmapp.activity;
 
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -7,31 +7,26 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.jwho_.atmapp.Adapter.ReservationListAdapter;
+import com.example.jwho_.atmapp.R;
+import com.example.jwho_.atmapp.RequestHttpURLConnection;
+import com.example.jwho_.atmapp.ReservationListAdapter;
+import com.example.jwho_.atmapp.ReservationWork;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class ReservationListPrint extends AppCompatActivity implements AdapterView.OnItemClickListener{
@@ -72,6 +67,7 @@ public class ReservationListPrint extends AppCompatActivity implements AdapterVi
             else {
                 currentCarNumber = works.get(0).getCarNumber();
                 adapter = new ReservationListAdapter();
+
                 for (int i = 0; i < works.size(); i++)
                     adapter.addVO(works.get(i));
 

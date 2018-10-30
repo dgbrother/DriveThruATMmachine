@@ -1,10 +1,13 @@
-package com.example.jwho_.atmapp;
+package com.example.jwho_.atmapp.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
+
+import com.example.jwho_.atmapp.R;
+import com.example.jwho_.atmapp.ReservationResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,16 +23,11 @@ public class ResultViewer extends AppCompatActivity {
         setContentView(R.layout.activity_result_viewer);
 
         try {
-//            Intent intent = getIntent();
-//            String jsonStr = intent.getStringExtra("result");
-//            JSONObject jsonObject = new JSONObject(jsonStr);
+            Intent intent = getIntent();
+            String jsonStr = intent.getStringExtra("result");
+            JSONObject jsonObject = new JSONObject(jsonStr);
 
-//            ArrayList<ReservationResult> resultList = ReservationResult.jsonToReserveResult(jsonObject);
-            ArrayList<ReservationResult> resultList = new ArrayList<>();
-            resultList.add(new ReservationResult("true","완료되었습니다.","10"));
-            resultList.add(new ReservationResult("true","완료되었습니다.","10"));
-            resultList.add(new ReservationResult("true","완료되었습니다.","10"));
-            resultList.add(new ReservationResult("true","완료되었습니다.","10"));
+            ArrayList<ReservationResult> resultList = ReservationResult.jsonToReserveResult(jsonObject);
             String result = getResultString(resultList);
 
             TextView resultText = findViewById(R.id.result_text);

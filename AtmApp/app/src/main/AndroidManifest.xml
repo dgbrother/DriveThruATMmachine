@@ -9,14 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AtmMain">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".activity.AtmMain">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".ReservationListPrint">
+        <activity android:name=".activity.ReservationListPrint">
         </activity>
 
         <service android:name="com.example.jwho_.atmapp.firebase.MyFirebaseInstanceIDService">
@@ -30,7 +26,13 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ResultViewer"></activity>
+        <activity android:name=".activity.ResultViewer">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.jwho_.atmapp;
+package com.example.jwho_.atmapp.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,15 +7,11 @@ import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.jwho_.atmapp.Adapter.ReservationListAdapter;
-
-import org.json.JSONObject;
+import com.example.jwho_.atmapp.R;
 
 public class AtmMain extends AppCompatActivity implements View.OnClickListener{
 
