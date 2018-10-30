@@ -20,17 +20,22 @@ public class ResultViewer extends AppCompatActivity {
         setContentView(R.layout.activity_result_viewer);
 
         try {
-            Intent intent = getIntent();
-            String jsonStr = intent.getStringExtra("result");
-            JSONObject jsonObject = new JSONObject(jsonStr);
+//            Intent intent = getIntent();
+//            String jsonStr = intent.getStringExtra("result");
+//            JSONObject jsonObject = new JSONObject(jsonStr);
 
-            ArrayList<ReservationResult> resultList = ReservationResult.jsonToReserveResult(jsonObject);
+//            ArrayList<ReservationResult> resultList = ReservationResult.jsonToReserveResult(jsonObject);
+            ArrayList<ReservationResult> resultList = new ArrayList<>();
+            resultList.add(new ReservationResult("true","완료되었습니다.","10"));
+            resultList.add(new ReservationResult("true","완료되었습니다.","10"));
+            resultList.add(new ReservationResult("true","완료되었습니다.","10"));
+            resultList.add(new ReservationResult("true","완료되었습니다.","10"));
             String result = getResultString(resultList);
 
             TextView resultText = findViewById(R.id.result_text);
             resultText.setText(result);
             resultText.setMovementMethod(new ScrollingMovementMethod());
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -44,16 +49,23 @@ public class ResultViewer extends AppCompatActivity {
             switch(result.getResult()) {
                 case "true":
                     successCount++;
-
-                case "false":
+                    stringBuilder.append("[성공] ");
                     stringBuilder.append(result.getNo());
-                    stringBuilder.append("번 업무");
+                    stringBuilder.append("번 업무 : ");
+                    stringBuilder.append(result.getMsg());
+                    stringBuilder.append(System.getProperty("line.separator"));
+                    break;
+                case "false":
+                    stringBuilder.append("[실패] ");
+                    stringBuilder.append(result.getNo());
+                    stringBuilder.append("번 업무 : ");
                     stringBuilder.append(result.getMsg());
                     stringBuilder.append(System.getProperty("line.separator"));
                     break;
             }
         }
-        String summery = executeCount+"개 중 "+successCount+"개 완료하였습니다.";
+        String summery = executeCount+"개 업무 중 "+successCount+"개 완료하였습니다.\n";
+
         stringBuilder.insert(0, summery);
         stringBuilder.append(System.getProperty("line.separator"));
 

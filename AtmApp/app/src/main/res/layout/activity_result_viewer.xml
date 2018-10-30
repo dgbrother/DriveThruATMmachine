@@ -21,7 +21,9 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="예약 업무가 완료되었습니다."
+            android:textColor="#0000ff"
             android:textSize="45dp"
+            android:textStyle="bold"
             />
 
     </LinearLayout>
@@ -30,16 +32,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="2"
+        android:paddingHorizontal="60dp"
+
         >
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="30dp"
+            android:paddingTop="50dp"
+            android:paddingHorizontal="60dp"
             android:background="#cccccc"
-            android:textSize="20dp"
+            android:textSize="30dp"
             android:scrollbars="vertical"
+            android:textStyle="bold"
             android:id="@+id/result_text"
+            android:lineSpacingExtra="15dp"
             />
 
     </LinearLayout>
