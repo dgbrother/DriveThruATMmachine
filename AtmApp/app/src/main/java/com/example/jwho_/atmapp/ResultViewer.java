@@ -1,6 +1,8 @@
 package com.example.jwho_.atmapp;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -18,6 +20,25 @@ public class ResultViewer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_viewer);
+
+        Handler handler = new Handler() {
+
+            public void handleMessage(Message msg) {
+
+                super.handleMessage(msg);
+
+                //startActivity(intent);
+
+                startActivity(new Intent(ResultViewer.this, AtmMain.class));
+
+                finish();
+
+            }
+
+        };
+
+        handler.sendEmptyMessageDelayed(0, 6000); //5초후 화면전환
+
 
         try {
 //            Intent intent = getIntent();

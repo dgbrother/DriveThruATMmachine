@@ -6,9 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".ResultViewer"
     android:orientation="vertical"
-    android:layout_margin="30dp"
+    android:background="#fffffe"
     >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3.9"
+        android:background="#0173a0">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="거 래 완 료"
+            android:gravity="center"
+            android:textSize="50dp"
+            android:textColor="#fffffe"/>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,7 +35,7 @@
             android:gravity="center"
             android:text="예약 업무가 완료되었습니다."
             android:textColor="#0000ff"
-            android:textSize="45dp"
+            android:textSize="60dp"
             android:textStyle="bold"
             />
 
@@ -32,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="2"
-        android:paddingHorizontal="60dp"
+        android:paddingHorizontal="180dp"
 
         >
 
@@ -40,14 +53,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="50dp"
-            android:paddingHorizontal="60dp"
+            android:paddingLeft="190dp"
             android:background="#cccccc"
-            android:textSize="30dp"
+            android:textSize="40sp"
             android:scrollbars="vertical"
             android:textStyle="bold"
             android:id="@+id/result_text"
             android:lineSpacingExtra="15dp"
-            />
+            android:textColor="#000000" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="4">
 
     </LinearLayout>
 
