@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AtmApp</string>
+    <string name="title_activity_put_money">PutMoneyActivity</string>
 </resources>

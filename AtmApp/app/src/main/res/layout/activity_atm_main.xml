@@ -2,44 +2,81 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="25dp">
+    android:padding="0dp"
+    android:background="#fffffe">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.1"
+        android:background="#0173a0">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="거래 선택"
+            android:textSize="40dp"
+            android:textColor="#ffffff"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.8">
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="입금"
+            android:id="@+id/putMoneyBtn"
+            android:background="#0173a0"
+            android:layout_margin="10dp"
+            android:textSize="15pt"
+            android:textColor="#ffffff"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="출금"
+            android:id="@+id/getMoneyBtn"
+            android:background="#0173a0"
+            android:layout_margin="10dp"
+            android:textSize="15pt"
+            android:textColor="#ffffff"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="송금"
+            android:id="@+id/sendMoneyBtn"
+            android:background="#0173a0"
+            android:layout_margin="10dp"
+            android:textSize="15pt"
+            android:textColor="#ffffff"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="예약 업무 확인"
+            android:id="@+id/reservationTaskBtn"
+            android:background="#0173a0"
+            android:layout_margin="10dp"
+            android:textSize="15pt"
+            android:textColor="#ffffff"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1.5">
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="입금"
-            android:id="@+id/putMoneyBtn"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="출금"
-            android:id="@+id/getMoneyBtn"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="송금"
-            android:id="@+id/sendMoneyBtn"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="예약 업무 확인"
-            android:id="@+id/reservationTaskBtn"/>
-    </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
