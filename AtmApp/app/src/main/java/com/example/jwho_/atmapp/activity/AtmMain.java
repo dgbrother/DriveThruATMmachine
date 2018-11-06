@@ -8,10 +8,12 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.jwho_.atmapp.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class AtmMain extends AppCompatActivity implements View.OnClickListener{
 
@@ -20,17 +22,10 @@ public class AtmMain extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_atm_main);
 
-        Button button = findViewById(R.id.putMoneyBtn);
-        button.setOnClickListener(this);
-
-        Button button2 = findViewById(R.id.getMoneyBtn);
-        button2.setOnClickListener(this);
-
-        Button button3 = findViewById(R.id.sendMoneyBtn);
-        button3.setOnClickListener(this);
-
-        Button button4 = findViewById(R.id.reservationTaskBtn);
-        button4.setOnClickListener(this);
+        findViewById(R.id.putMoneyBtn)          .setOnClickListener(this);
+        findViewById(R.id.getMoneyBtn)          .setOnClickListener(this);
+        findViewById(R.id.sendMoneyBtn)         .setOnClickListener(this);
+        findViewById(R.id.reservationTaskBtn)   .setOnClickListener(this);
     }
 
     @Override
@@ -72,14 +67,23 @@ public class AtmMain extends AppCompatActivity implements View.OnClickListener{
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String carNumber = intent.getExtras().getString("data");
+        String carEntry = intent.getExtras().getString("carEntry");
 
-            if(carNumber != null) {
-                Intent intentac = new Intent(getApplicationContext(), ReservationListPrint.class);
-                intentac.putExtra("data", carNumber);
-                startActivity(intentac);
+        if(carEntry != null) {
+            try {
+                JSONObject jsonCarEntryInfo = new JSONObject(carEntry);
+                String carNumber    = jsonCarEntryInfo.getString("carNumber");
+                String nfcId        = jsonCarEntryInfo.getString("nfcId");
+
+                Intent intentToListPrint = new Intent(getApplicationContext(), ReservationListPrint.class);
+                intentToListPrint.putExtra("carNumber", carNumber);
+                intentToListPrint.putExtra("nfcId", nfcId);
+                startActivity(intentToListPrint);
                 finish();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+        }
         }
     };
 }

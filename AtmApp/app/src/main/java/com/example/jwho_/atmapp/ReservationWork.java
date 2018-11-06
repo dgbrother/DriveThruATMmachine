@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 
 public class ReservationWork {
-    // 리스트뷰에 들어갈 업무 내역 부분
     private String no;
     private String type;
     private String id;
@@ -16,17 +15,6 @@ public class ReservationWork {
     private String dstAccount;
     private String amount;
     private String isdone;
-
-    public ReservationWork() {
-        this.no = "-";
-        this.type = "-";
-        this.id = "-";
-        this.carNumber = "-";
-        this.srcAccount = "-";
-        this.dstAccount = "-";
-        this.amount = "-";
-        this.isdone = "-";
-    }
 
     public ReservationWork(String no, String type, String id, String carNumber, String srcAccount, String sendAccount, String amount, String isdone) {
         this.no = no;
@@ -41,10 +29,10 @@ public class ReservationWork {
 
     public static ArrayList<ReservationWork> jsonToReserveInfo(JSONObject jsonMain) {
         try {
-            JSONArray jarray = jsonMain.getJSONArray("data");
+            JSONArray jsonArray = jsonMain.getJSONArray("data");
             ArrayList<ReservationWork> reservationWorks = new ArrayList<>();
-            for (int i = 0; i < jarray.length(); i++) {
-                JSONObject jsonObject = jarray.getJSONObject(i);  // JSONObject 추출
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);  // JSONObject 추출
                 ReservationWork reserveInfo = new ReservationWork(
                         jsonObject.getString("no"),
                         jsonObject.getString("type"),

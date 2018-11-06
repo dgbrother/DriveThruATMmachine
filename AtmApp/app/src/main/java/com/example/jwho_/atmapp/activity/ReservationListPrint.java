@@ -16,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.jwho_.atmapp.R;
 import com.example.jwho_.atmapp.RequestHttpURLConnection;
@@ -33,6 +32,7 @@ public class ReservationListPrint extends AppCompatActivity implements AdapterVi
     private String url = "http://35.200.117.1:8080/control.jsp";
     private ReservationListAdapter adapter;
     private String currentCarNumber;
+    private String currentNFCId;
 
     @Override
     public void onBackPressed() {
@@ -44,45 +44,28 @@ public class ReservationListPrint extends AppCompatActivity implements AdapterVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation_list_print);
 
+        Intent intent = getIntent();
+        currentCarNumber    = intent.getStringExtra("carNumber");
+        currentNFCId        = intent.getStringExtra("nfcId");
+
+        if(currentCarNumber != null)
+            loadReservation(currentCarNumber);
+        else
+            currentCarNumber = "등록된 예약업무가 없습니다.";
+
+        TextView carNumberView = findViewById(R.id.text2);
+        carNumberView.setText(currentCarNumber);
+
         findViewById(R.id.Back).setOnClickListener(
-                new Button.OnClickListener(){
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getApplicationContext(), AtmMain.class);
-                        startActivity(intent);
-                        finish();
-                    }
+            new Button.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), AtmMain.class);
+                    startActivity(intent);
+                    finish();
                 }
+            }
         );
-
-        try {
-            Intent intent = getIntent();
-            String jsonStr = intent.getStringExtra("data");
-            JSONObject jsonObject = new JSONObject(jsonStr);
-
-            ArrayList<ReservationWork> works = ReservationWork.jsonToReserveInfo(jsonObject);
-            if(works.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "예약된 정보가 없습니다.", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                currentCarNumber = works.get(0).getCarNumber();
-                adapter = new ReservationListAdapter();
-
-                for (int i = 0; i < works.size(); i++)
-                    adapter.addVO(works.get(i));
-
-                ListView listview = findViewById(R.id.List_view);
-                listview.setAdapter(adapter);
-                listview.setOnItemClickListener(ReservationListPrint.this);
-            }
-
-            TextView carnum;
-            carnum = (TextView)findViewById(R.id.text2);
-            carnum.setText(currentCarNumber);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -128,13 +111,20 @@ public class ReservationListPrint extends AppCompatActivity implements AdapterVi
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String result = intent.getExtras().getString("result");
+            String result = intent.getExtras().getString("nfcTag");
 
             if(result != null) {
-                Intent intentac = new Intent(getApplicationContext(), ResultViewer.class);
-                intentac.putExtra("result", result);
-                startActivity(intentac);
-                finish();
+                try {
+                    JSONObject jsonNFCTagInfo = new JSONObject(result);
+                    String nfcId = jsonNFCTagInfo.getString("nfcId");
+
+                    Intent intentToResultViewer = new Intent(getApplicationContext(), ResultViewer.class);
+                    intentToResultViewer.putExtra("nfcId", nfcId);
+                    startActivity(intentToResultViewer);
+                    finish();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
     };
@@ -155,8 +145,9 @@ public class ReservationListPrint extends AppCompatActivity implements AdapterVi
 
             ArrayList<ReservationWork> works = ReservationWork.jsonToReserveInfo(result);
             adapter = new ReservationListAdapter();
-            for (int i = 0; i < works.size(); i++)
-                adapter.addVO(works.get(i));
+
+            for (ReservationWork work : works)
+                adapter.addVO(work);
 
             return result;
         }
@@ -168,6 +159,17 @@ public class ReservationListPrint extends AppCompatActivity implements AdapterVi
             listview.setAdapter(adapter);
             listview.setOnItemClickListener(ReservationListPrint.this);
         }
+    }
+
+    private void loadReservation(String carNumber) {
+        ContentValues params = new ContentValues();
+        params.put("type",      "reservation");
+        params.put("action",    "select");
+        params.put("from",      "machine");
+        params.put("carNumber", carNumber);
+
+        NetworkTask loadReservationInfoTask = new NetworkTask(url, params);
+        loadReservationInfoTask.execute();
     }
 
     private void deleteReservation(String no) {

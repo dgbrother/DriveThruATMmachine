@@ -29,19 +29,20 @@ public class MyFirebaseHandlingService extends FirebaseMessagingService {
             Intent intent = new Intent("GCMData");
             String msgFromServer = remoteMessage.getData().get("msgFromServer");
 
-            String TAG = "";
             try {
                 JSONObject jsonObject = new JSONObject(msgFromServer);
-                if(jsonObject.has("data"))
-                    TAG = "data";
-                if(jsonObject.has("result"))
-                    TAG = "result";
+                /*
+                    [ action ]
+                        - carEntry  : 차량 진입. "AtmMain Activity" 에서 receive.
+                        - nfcTag    : NFC 카드 TAG. 예약업무 불러오기, 예약업무 실행하기 에서 receive.
+                        - error     : 오류. [ errorType ] : "에러 메시지" 형태로 전달.
+                 */
+                String action = jsonObject.getString("action");
+                intent.putExtra(action, jsonObject.toString());
+                broadcastManager.sendBroadcast(intent);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-            intent.putExtra(TAG, msgFromServer);
-            broadcastManager.sendBroadcast(intent);
         }
     }
 }

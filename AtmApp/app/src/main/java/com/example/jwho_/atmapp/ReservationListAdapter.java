@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 public class ReservationListAdapter extends BaseAdapter {
     private ArrayList<ReservationWork> listVO = new ArrayList<>();
-    private String url = "http://35.200.117.1:8080/control.jsp";
     public ReservationListAdapter(){}
 
     @Override

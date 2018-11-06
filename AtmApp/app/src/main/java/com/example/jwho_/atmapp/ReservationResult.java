@@ -22,7 +22,7 @@ public class ReservationResult {
             JSONArray jsonArray = jsonMain.getJSONArray("result");
             ArrayList<ReservationResult> reservationResults = new ArrayList<>();
             for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);  // JSONObject 추출
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
                 ReservationResult reservationResult = new ReservationResult(
                         jsonObject.getString("result"),
                         jsonObject.getString("msg"),
