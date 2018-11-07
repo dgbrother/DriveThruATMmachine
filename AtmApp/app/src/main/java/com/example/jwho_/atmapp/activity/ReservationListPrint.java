@@ -113,6 +113,7 @@ public class ReservationListPrint extends AppCompatActivity implements AdapterVi
         @Override
         public void onReceive(Context context, Intent intent) {
             String result = intent.getExtras().getString("nfcTag");
+            String error = intent.getExtras().getString("error");
 
             if(result != null) {
                 try {
@@ -126,12 +127,15 @@ public class ReservationListPrint extends AppCompatActivity implements AdapterVi
                     finish();
                     }
                     else{
-                        Toast.makeText(getApplicationContext(),"잘못된 카드입니다. 다시 입력 해 주세요.",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"카드정보가 일치하지 않습니다. 다시 입력 해 주세요.",Toast.LENGTH_LONG).show();
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+            if(error != null){
+                Toast.makeText(getApplicationContext(),"등록되지않은 카드입니다. 다시 입력 해 주세요.",Toast.LENGTH_LONG).show();
             }
         }
     };
