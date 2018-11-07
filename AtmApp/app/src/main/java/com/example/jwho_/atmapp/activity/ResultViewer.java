@@ -81,7 +81,7 @@ public class ResultViewer extends AppCompatActivity {
         ContentValues params = new ContentValues();
         params.put("type",      "reservation");
         params.put("action",    "execute");
-        params.put("carNumber", nfcId);
+        params.put("nfcId", nfcId);
 
         NetworkTask loadResultTask = new NetworkTask(url, params);
         loadResultTask.execute();

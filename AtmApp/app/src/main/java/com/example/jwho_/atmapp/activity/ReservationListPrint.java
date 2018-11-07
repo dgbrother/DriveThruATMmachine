@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jwho_.atmapp.R;
 import com.example.jwho_.atmapp.RequestHttpURLConnection;
@@ -118,10 +119,16 @@ public class ReservationListPrint extends AppCompatActivity implements AdapterVi
                     JSONObject jsonNFCTagInfo = new JSONObject(result);
                     String nfcId = jsonNFCTagInfo.getString("nfcId");
 
+                    if(currentNFCId.equals(nfcId)){
                     Intent intentToResultViewer = new Intent(getApplicationContext(), ResultViewer.class);
                     intentToResultViewer.putExtra("nfcId", nfcId);
                     startActivity(intentToResultViewer);
                     finish();
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),"잘못된 카드입니다. 다시 입력 해 주세요.",Toast.LENGTH_LONG).show();
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
