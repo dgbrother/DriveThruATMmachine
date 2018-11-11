@@ -8,18 +8,12 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.jwho_.atmapp.R;
 import com.example.jwho_.atmapp.RequestHttpURLConnection;
-import com.example.jwho_.atmapp.ReservationListAdapter;
 import com.example.jwho_.atmapp.ReservationResult;
-import com.example.jwho_.atmapp.ReservationWork;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;

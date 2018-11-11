@@ -23,9 +23,9 @@ public class MyFirebaseHandlingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Log.d("hello", "From: "+remoteMessage.getFrom());
+        Log.d("helloTest", "From: "+remoteMessage.getFrom());
         if(remoteMessage.getData().size() > 0) {
-            Log.d("hello", "Message data payload: "+remoteMessage.getData());
+            Log.d("helloTest", "Message data payload: "+remoteMessage.getData());
             Intent intent = new Intent("GCMData");
             String msgFromServer = remoteMessage.getData().get("msgFromServer");
 
