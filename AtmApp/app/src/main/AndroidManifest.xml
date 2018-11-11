@@ -30,7 +30,8 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".activity.ReservationListBtnActivity"></activity>
+        <activity android:name=".activity.ReservationListBtnActivity" />
+        <activity android:name=".activity.Deposit"></activity>
     </application>
 
 </manifest>

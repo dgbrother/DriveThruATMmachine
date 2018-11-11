@@ -62,6 +62,8 @@ public class ReservationListAdapter extends BaseAdapter {
     }
 
     public String getNo(int position) { return listVO.get(position).getNo(); }
+
+    public ArrayList<ReservationWork> getReservationList() { return listVO; }
 }
 
 

@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -120,11 +121,23 @@ public class ReservationListPrint extends AppCompatActivity implements AdapterVi
                     JSONObject jsonNFCTagInfo = new JSONObject(result);
                     String nfcId = jsonNFCTagInfo.getString("nfcId");
 
-                    if(currentNFCId.equals(nfcId)){
-                    Intent intentToResultViewer = new Intent(getApplicationContext(), ResultViewer.class);
-                    intentToResultViewer.putExtra("nfcId", nfcId);
-                    startActivity(intentToResultViewer);
-                    finish();
+                    if(currentNFCId.equals(nfcId)) {
+                        for(ReservationWork work : adapter.getReservationList()) {
+                            if (work.getType().equals("deposit")) {
+                                Log.d("helloTest", "work type : " + work.getType());
+                                Intent intentToDeposit = new Intent(ReservationListPrint.this, Deposit.class);
+                                intentToDeposit.putExtra("nfcId", currentNFCId);
+                                intentToDeposit.putExtra("carNumber", currentCarNumber);
+                                startActivity(intentToDeposit);
+                                Log.d("helloTest", "work finish");
+                                finish();
+                                return;
+                            }
+                        }
+                        Intent intentToResultViewer = new Intent(ReservationListPrint.this, ResultViewer.class);
+                        intentToResultViewer.putExtra("nfcId", nfcId);
+                        startActivity(intentToResultViewer);
+                        finish();
                     }
                     else{
                         Toast.makeText(getApplicationContext(),"카드정보가 일치하지 않습니다. 다시 입력 해 주세요.",Toast.LENGTH_LONG).show();
