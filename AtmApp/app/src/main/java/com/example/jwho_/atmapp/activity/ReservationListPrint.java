@@ -126,6 +126,7 @@ public class ReservationListPrint extends AppCompatActivity implements AdapterVi
                             if (work.getType().equals("deposit")) {
                                 Log.d("helloTest", "work type : " + work.getType());
                                 Intent intentToDeposit = new Intent(ReservationListPrint.this, Deposit.class);
+                                intentToDeposit.putExtra("task","reservation");
                                 intentToDeposit.putExtra("nfcId", currentNFCId);
                                 intentToDeposit.putExtra("carNumber", currentCarNumber);
                                 startActivity(intentToDeposit);

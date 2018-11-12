@@ -16,9 +16,15 @@ import org.json.JSONObject;
 
 public class ReservationListBtnActivity extends AppCompatActivity {
 
+    String task = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        task = intent.getExtras().getString("task");
+
         setContentView(R.layout.activity_reservation_list_btn);
         findViewById(R.id.Back).setOnClickListener(
                 new Button.OnClickListener(){
@@ -57,14 +63,34 @@ public class ReservationListBtnActivity extends AppCompatActivity {
             if(nfcTag != null) {
                 try {
                     JSONObject jsonNfcTagInfo = new JSONObject(nfcTag);
-                    String carNumber    = jsonNfcTagInfo.getString("carNumber");
-                    String nfcId        = jsonNfcTagInfo.getString("nfcId");
+                    String nfcId = jsonNfcTagInfo.getString("nfcId");
 
-                    Intent intentToListPrint = new Intent(getApplicationContext(), ReservationListPrint.class);
-                    intentToListPrint.putExtra("carNumber", carNumber);
-                    intentToListPrint.putExtra("nfcId", nfcId);
-                    startActivity(intentToListPrint);
-                    finish();
+                    if(task.equals("putMoney")){
+                        Intent intentDeposit = new Intent(getApplicationContext(), Deposit.class);
+                        intentDeposit.putExtra("task",task);
+                        intentDeposit.putExtra("nfcId",nfcId);
+                        startActivity(intentDeposit);
+                        finish();
+                    }
+                    else if(task.equals("getMoney")){
+                        Intent intentDeposit = new Intent(getApplicationContext(), Deposit.class);
+                        intentDeposit.putExtra("task",task);
+                        intentDeposit.putExtra("nfcId",nfcId);
+                        startActivity(intentDeposit);
+                        finish();
+                    }
+                    else if(task.equals("sendMoney")){
+
+                    }
+                    else if(task.equals("reservation")){
+                        String carNumber = jsonNfcTagInfo.getString("carNumber");
+
+                        Intent intentToListPrint = new Intent(getApplicationContext(), ReservationListPrint.class);
+                        intentToListPrint.putExtra("carNumber", carNumber);
+                        intentToListPrint.putExtra("nfcId", nfcId);
+                        startActivity(intentToListPrint);
+                        finish();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

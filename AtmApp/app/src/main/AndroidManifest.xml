@@ -31,7 +31,8 @@
         </service>
 
         <activity android:name=".activity.ReservationListBtnActivity" />
-        <activity android:name=".activity.Deposit"></activity>
+        <activity android:name=".activity.Deposit" />
+        <activity android:name=".activity.BasicBankingActivity"></activity>
     </application>
 
 </manifest>

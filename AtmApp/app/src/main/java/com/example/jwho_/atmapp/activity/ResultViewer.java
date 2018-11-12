@@ -8,6 +8,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.jwho_.atmapp.R;
@@ -53,7 +54,7 @@ public class ResultViewer extends AppCompatActivity {
         protected String doInBackground(Void... voids) {
             RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
             JSONObject jsonResult = requestHttpURLConnection.request(url, values);
-
+            Log.d("helloTest",jsonResult.toString());
             ArrayList<ReservationResult> resultList = ReservationResult.jsonToReserveResult(jsonResult);
             String result = getResultString(resultList);
 
