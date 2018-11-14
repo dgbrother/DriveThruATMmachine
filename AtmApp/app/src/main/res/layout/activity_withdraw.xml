@@ -40,7 +40,7 @@
         android:layout_gravity="center_horizontal"
         android:paddingHorizontal="150dp"
         android:paddingVertical="35dp"
-        android:text="입금"
+        android:text="출금"
         android:textSize="50sp"
         android:id="@+id/button_putNget"
         />

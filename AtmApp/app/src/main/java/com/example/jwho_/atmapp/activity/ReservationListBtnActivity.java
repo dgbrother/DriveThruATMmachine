@@ -80,7 +80,11 @@ public class ReservationListBtnActivity extends AppCompatActivity {
                         finish();
                     }
                     else if(task.equals("sendMoney")){
-
+                        Intent intentDeposit = new Intent(getApplicationContext(), Deposit.class);
+                        intentDeposit.putExtra("task",task);
+                        intentDeposit.putExtra("nfcId",nfcId);
+                        startActivity(intentDeposit);
+                        finish();
                     }
                     else if(task.equals("reservation")){
                         String carNumber = jsonNfcTagInfo.getString("carNumber");

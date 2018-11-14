@@ -34,10 +34,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="처리가 완료 되었습니다."
             android:textColor="#0000ff"
             android:textSize="60dp"
             android:textStyle="bold"
+            android:id="@+id/task_result"
             />
     </LinearLayout>
 
