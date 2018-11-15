@@ -51,9 +51,6 @@ public class Deposit extends AppCompatActivity implements View.OnClickListener {
                 EditText depositAmountText = findViewById(R.id.editText_depositAmount);
                 String depositAmount = depositAmountText.getText().toString();
 
-                EditText sendTargetText = findViewById(R.id.editText_sendTarget);
-                String sendTarget = sendTargetText.getText().toString();
-
                 ContentValues params = new ContentValues();
 
                 if(task.equals("putMoney")) {
@@ -69,6 +66,8 @@ public class Deposit extends AppCompatActivity implements View.OnClickListener {
                     params.put("nfcId", nfcId);
                 }
                 else if(task.equals("sendMoney")){
+                    EditText sendTargetText = findViewById(R.id.editText_sendTarget);
+                    String sendTarget = sendTargetText.getText().toString();
                     params.put("type", "banking");
                     params.put("action", "send");
                     params.put("amount", depositAmount);
