@@ -8,11 +8,23 @@
     android:orientation="vertical"
     android:layout_margin="25dp"
     >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="송금할 계좌와 금액을 입력 해 주세요."
+            android:gravity="center"
+            android:textSize="70dp"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2"
+        android:layout_weight="1.2"
         android:orientation="horizontal"
         android:paddingHorizontal="20dp">
         <TextView
@@ -35,7 +47,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2"
+        android:layout_weight="1.2"
         android:orientation="horizontal"
         android:paddingHorizontal="20dp">
         <EditText
@@ -61,15 +73,31 @@
 
 </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:paddingHorizontal="150dp"
-        android:paddingVertical="35dp"
-        android:text="송금"
-        android:textSize="50sp"
-        android:id="@+id/button_putNget"
-        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.2"
+        android:padding="10dp">
+
+        <Button
+            android:id="@+id/button_putNget"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:text="송금"
+            android:textSize="40sp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="30dp"/>
+
+        <Button
+            android:id="@+id/Back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:text="메인으로"
+            android:textSize="40sp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="30dp"/>
+    </LinearLayout>
 
 </LinearLayout>

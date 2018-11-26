@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -42,6 +43,17 @@ public class Deposit extends AppCompatActivity implements View.OnClickListener {
             setContentView(R.layout.activity_sendmoney);
         }
         findViewById(R.id.button_putNget).setOnClickListener(this);
+
+        findViewById(R.id.Back).setOnClickListener(
+                new Button.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), AtmMain.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+        );
     }
 
     @Override
@@ -73,12 +85,20 @@ public class Deposit extends AppCompatActivity implements View.OnClickListener {
                     params.put("amount", depositAmount);
                     params.put("dstAccount",sendTarget);
                     params.put("nfcId", nfcId);
+                    if(sendTarget.isEmpty()){
+                        Toast.makeText(getApplicationContext(),"계좌번호를 입력 해 주세요.",Toast.LENGTH_LONG).show();
+                        break;
+                    }
                 }
                 else if(task.equals("reservation")){
                     params.put("type", "reservation");
                     params.put("action", "execute_deposit");
                     params.put("amount", depositAmount);
                     params.put("carNumber", carNumber);
+                }
+                if(depositAmount.isEmpty()){
+                    Toast.makeText(getApplicationContext(),"금액을 입력 해 주세요.",Toast.LENGTH_LONG).show();
+                    break;
                 }
 
                 NetworkTask depositProcess = new NetworkTask(url, params);
